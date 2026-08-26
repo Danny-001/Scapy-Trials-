@@ -1,0 +1,146 @@
+(kali㉿kali)-[~]
+└─$ scapy                       
+INFO: Can't import PyX. Won't be able to use psdump() or pdfdump().
+                                      
+                     aSPY//YASa       
+             apyyyyCY//////////YCa       |
+            sY//////YSpcs  scpCY//Pp     | Welcome to Scapy
+ ayp ayyyyyyySCP//Pp           syY//C    | Version 2.7.01
+ AYAsAYYYYYYYY///Ps              cY//S   |
+         pCCCCY//p          cSSps y//Y   | https://github.com/secdev/scapy
+         SPPPP///a          pP///AC//Y   |
+              A//A            cyP////C   | Have fun!
+              p///Ac            sC///a   |
+              P////YCpc           A//A   | Wanna support scapy? Star us on
+       scccccp///pSP///p          p//Y   | GitHub!
+      sY/////////y  caa           S//P   |             -- Satoshi Nakamoto
+       cayCyayP//Ya              pY/Ya   |
+        sY/PsY////YCc          aC//Yp 
+         sc  sccaCY//PCypaapyCP//YSs  
+                  spCPY//////YPSps    
+                       ccaacs         
+                                       using IPython 8.35.0
+>>> from scapy.all import *
+>>> pkt = IP(dst="192.168.1.68")/ICMP()
+>>> send(pkt)          # Layer 3, no reply expected
+...: sr1(pkt)            # sends and waits for one reply
+---------------------------------------------------------------------------
+PermissionError                           Traceback (most recent call last)
+Cell In[3], line 1
+----> 1 send(pkt)          # Layer 3, no reply expected
+      2 sr1(pkt)            # sends and waits for one reply
+
+File /usr/lib/python3/dist-packages/scapy/sendrecv.py:492, in send(x, **kargs)
+    490     del kargs["iface"]
+    491 iface, ipv6 = _interface_selection(x)
+--> 492 return _send(
+    493     x,
+    494     lambda iface: iface.l3socket(ipv6),
+    495     iface=iface,
+    496     **kargs
+    497 )
+
+File /usr/lib/python3/dist-packages/scapy/sendrecv.py:452, in _send(x, _func, inter, loop, iface, count, verbose, realtime, return_packets, socket, **kargs)
+    450 need_closing = socket is None
+    451 iface = resolve_iface(iface or conf.iface)
+--> 452 socket = socket or _func(iface)(iface=iface, **kargs)
+    453 results = __gen_send(socket, x, inter=inter, loop=loop,
+    454                      count=count, verbose=verbose,
+    455                      realtime=realtime, return_packets=return_packets)
+    456 if need_closing:
+
+File /usr/lib/python3/dist-packages/scapy/arch/linux/__init__.py:328, in L3PacketSocket.__init__(self, iface, type, promisc, filter, nofilter, monitor)
+    319 def __init__(self,
+    320              iface=None,  # type: Optional[Union[str, NetworkInterface]]
+    321              type=ETH_P_ALL,  # type: int
+   (...)
+    325              monitor=None,  # type: Optional[Any]
+    326              ):
+    327     self.send_socks = {}
+--> 328     super(L3PacketSocket, self).__init__(
+    329         iface=iface,
+    330         type=type,
+    331         promisc=promisc,
+    332         filter=filter,
+    333         nofilter=nofilter,
+    334         monitor=monitor,
+    335     )
+    336     self.filter = filter
+    337     self.send_socks = {network_name(self.iface): self}
+
+File /usr/lib/python3/dist-packages/scapy/arch/linux/__init__.py:219, in L2Socket.__init__(self, iface, type, promisc, filter, nofilter, monitor)
+    217 self.type = type
+    218 self.promisc = conf.sniff_promisc if promisc is None else promisc
+--> 219 self.ins = socket.socket(
+    220     socket.AF_PACKET, socket.SOCK_RAW, socket.htons(type))
+    221 self.ins.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 0)
+    222 if not nofilter:
+
+File /usr/lib/python3.13/socket.py:233, in socket.__init__(self, family, type, proto, fileno)
+    231     if proto == -1:
+    232         proto = 0
+--> 233 _socket.socket.__init__(self, family, type, proto, fileno)
+    234 self._io_refs = 0
+    235 self._closed = False
+
+PermissionError: [Errno 1] Operation not permitted
+>>> sniff(count=10, prn=lambda p: p.summary())
+---------------------------------------------------------------------------
+PermissionError                           Traceback (most recent call last)
+Cell In[4], line 1
+----> 1 sniff(count=10, prn=lambda p: p.summary())
+
+File /usr/lib/python3/dist-packages/scapy/sendrecv.py:1438, in sniff(*args, **kwargs)
+   1434 @conf.commands.register
+   1435 def sniff(*args, **kwargs):
+   1436     # type: (*Any, **Any) -> PacketList
+   1437     sniffer = AsyncSniffer()
+-> 1438     sniffer._run(*args, **kwargs)
+   1439     return cast(PacketList, sniffer.results)
+
+File /usr/lib/python3/dist-packages/scapy/sendrecv.py:1283, in AsyncSniffer._run(self, count, store, offline, quiet, prn, lfilter, L2socket, timeout, opened_socket, stop_filter, iface, started_callback, session, chainCC, **karg)                                                                                    
+   1281     else:
+   1282         iface = iface or conf.iface
+-> 1283         sniff_sockets[_RL2(iface)(type=ETH_P_ALL, iface=iface,
+   1284                                   **karg)] = iface
+   1286 # Get select information from the sockets
+   1287 _main_socket = next(iter(sniff_sockets))
+
+File /usr/lib/python3/dist-packages/scapy/arch/linux/__init__.py:219, in L2Socket.__init__(self, iface, type, promisc, filter, nofilter, monitor)
+    217 self.type = type
+    218 self.promisc = conf.sniff_promisc if promisc is None else promisc
+--> 219 self.ins = socket.socket(
+    220     socket.AF_PACKET, socket.SOCK_RAW, socket.htons(type))
+    221 self.ins.setsockopt(socket.SOL_SOCKET, socket.SO_RCVBUF, 0)
+    222 if not nofilter:
+
+File /usr/lib/python3.13/socket.py:233, in socket.__init__(self, family, type, proto, fileno)
+    231     if proto == -1:
+    232         proto = 0
+--> 233 _socket.socket.__init__(self, family, type, proto, fileno)
+    234 self._io_refs = 0
+    235 self._closed = False
+
+PermissionError: [Errno 1] Operation not permitted
+>>> pkt.show()
+###[ IP ]###
+  version   = 4
+  ihl       = None
+  tos       = 0x0
+  len       = None
+  id        = 1
+  flags     = 
+  frag      = 0
+  ttl       = 64
+  proto     = icmp
+  chksum    = None
+  src       = 192.168.1.69
+  dst       = 192.168.1.68
+  \options   \
+###[ ICMP ]###
+     type      = echo-request
+     code      = 0
+     chksum    = None
+     id        = 0x0
+     seq       = 0x0
+     unused    = b''
