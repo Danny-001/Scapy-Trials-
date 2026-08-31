@@ -1,0 +1,72 @@
+kali㉿kali)-[~]
+└─$ sudo scapy
+[sudo] password for kali: 
+INFO: Can't import PyX. Won't be able to use psdump() or pdfdump().
+                                      
+                     aSPY//YASa       
+             apyyyyCY//////////YCa       |
+            sY//////YSpcs  scpCY//Pp     | Welcome to Scapy
+ ayp ayyyyyyySCP//Pp           syY//C    | Version 2.7.01
+ AYAsAYYYYYYYY///Ps              cY//S   |
+         pCCCCY//p          cSSps y//Y   | https://github.com/secdev/scapy
+         SPPPP///a          pP///AC//Y   |
+              A//A            cyP////C   | Have fun!
+              p///Ac            sC///a   |
+              P////YCpc           A//A   | Craft me if you can.
+       scccccp///pSP///p          p//Y   |                   -- IPv6 layer
+      sY/////////y  caa           S//P   |
+       cayCyayP//Ya              pY/Ya
+        sY/PsY////YCc          aC//Yp 
+         sc  sccaCY//PCypaapyCP//YSs  
+                  spCPY//////YPSps    
+                       ccaacs         
+                                       using IPython 8.35.0
+>>> sniff(iface="eth0")
+^C<Sniffed: TCP:0 UDP:0 ICMP:1 Other:1>
+>>> a=_
+>>> a.summary()
+Ether / ARP who has 10.0.2.15 says 10.0.2.15
+Ether / IP / ICMP 10.0.2.15 > 10.0.2.15 echo-request 0 / Raw
+>>> sniff(iface="eth0")
+^C<Sniffed: TCP:30 UDP:2 ICMP:0 Other:6>
+>>> a=_
+>>> a.summary()
+Ether / IP / UDP / DNS Qry b'ads.mozilla.org.'
+Ether / IP / UDP / DNS Ans b'mozilla.map.fastly.net.'
+Ether / IP / TCP 10.0.2.15:44482 > 151.101.193.91:https S
+Ether / IP / TCP 151.101.193.91:https > 10.0.2.15:44482 SA / Padding
+Ether / IP / TCP 10.0.2.15:44482 > 151.101.193.91:https A
+Ether / IP / TCP 10.0.2.15:44482 > 151.101.193.91:https PA / Raw
+Ether / IP / TCP 151.101.193.91:https > 10.0.2.15:44482 A / Padding
+Ether / IP / TCP 151.101.193.91:https > 10.0.2.15:44482 A / Padding
+Ether / IP / TCP 10.0.2.15:44482 > 151.101.193.91:https PA / Raw
+Ether / IP / TCP 151.101.193.91:https > 10.0.2.15:44482 A / Padding
+Ether / IP / TCP 10.0.2.15:44482 > 151.101.193.91:https PA / Raw
+Ether / IP / TCP 151.101.193.91:https > 10.0.2.15:44482 A / Padding
+Ether / IP / TCP 151.101.193.91:https > 10.0.2.15:44482 PA / Raw
+Ether / IP / TCP 151.101.193.91:https > 10.0.2.15:44482 PA / Raw
+Ether / IP / TCP 10.0.2.15:44482 > 151.101.193.91:https A
+Ether / IP / TCP 10.0.2.15:44482 > 151.101.193.91:https A
+Ether / IP / TCP 10.0.2.15:44482 > 151.101.193.91:https PA / Raw
+Ether / IP / TCP 151.101.193.91:https > 10.0.2.15:44482 A / Padding
+Ether / IP / TCP 151.101.193.91:https > 10.0.2.15:44482 PA / Raw
+Ether / IP / TCP 10.0.2.15:44482 > 151.101.193.91:https PA / Raw
+Ether / IP / TCP 10.0.2.15:44482 > 151.101.193.91:https PA / Raw
+Ether / IP / TCP 151.101.193.91:https > 10.0.2.15:44482 A / Padding
+Ether / IP / TCP 10.0.2.15:44482 > 151.101.193.91:https PA / Raw
+Ether / IP / TCP 151.101.193.91:https > 10.0.2.15:44482 A / Padding
+Ether / IP / TCP 151.101.193.91:https > 10.0.2.15:44482 PA / Raw
+Ether / IP / TCP 10.0.2.15:44482 > 151.101.193.91:https A
+Ether / ARP who has 10.0.2.15 says 10.0.2.15
+Ether / IP / TCP 10.0.2.15:ftp_data > 10.0.2.15:microsoft_ds S
+Ether / IP / TCP 10.0.2.15:44482 > 151.101.193.91:https PA / Raw
+Ether / IP / TCP 151.101.193.91:https > 10.0.2.15:44482 A / Padding
+Ether / IP / TCP 151.101.193.91:https > 10.0.2.15:44482 PA / Raw
+Ether / IP / TCP 10.0.2.15:44482 > 151.101.193.91:https A
+Ether / ARP who has 10.0.2.2 says 10.0.2.15
+Ether / ARP is at 52:54:00:12:35:00 says 10.0.2.2 / Padding
+Ether / IPv6 / ICMPv6ND_RA / ICMPv6NDOptSrcLLAddr / ICMPv6 Neighbor Discovery Option - Prefix Information fd17:625c:f037:2::/64 On-link 1 Autonomous Address 1 Router Address 0
+Ether / fe80::a271:ff1b:5045:6ac1 > ff02::16 (0) / IPv6ExtHdrHopByHop / ICMPv6MLReport2
+Ether / fe80::a271:ff1b:5045:6ac1 > ff02::16 (0) / IPv6ExtHdrHopByHop / ICMPv6MLReport2
+Ether / IP / TCP 10.0.2.15:microsoft_ds > 10.0.2.15:ftp_data RA / Padding
+>>> 
